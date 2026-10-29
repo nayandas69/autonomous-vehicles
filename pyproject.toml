@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "autonomous-vehicles"
+version = "0.1.0"
+description = "Original, reproducible synthetic-road perception research"
+requires-python = ">=3.14,<3.15"
+dependencies = ["torch==2.15.0", "numpy==2.5.4"]
+
+[project.optional-dependencies]
+notebooks = ["jupyterlab==4.6.5", "matplotlib==3.11.2", "ipykernel==7.4.0", "nbconvert==7.17.2"]
+
+[dependency-groups]
+dev = ["pytest==9.2.0", "ruff==0.17.3"]
+
+[project.scripts]
+av = "autonomous_vehicles.cli:main"
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
